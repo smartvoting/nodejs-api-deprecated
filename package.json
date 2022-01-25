@@ -6,7 +6,9 @@
   "license": "GPL-3.0",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server",
+    "dev": "nodemon server",
+    "prod": "set NODE_ENV=production && node server"
   },
   "repository": {
     "type": "git",
@@ -17,7 +19,9 @@
   },
   "homepage": "https://github.com/smartvoting/api#readme",
   "dependencies": {
+    "dotenv": "^14.3.0",
     "express": "^4.17.2",
-    "nodemon": "^2.0.15"
+    "nodemon": "^2.0.15",
+    "pg": "^8.7.1"
   }
 }
