@@ -1,0 +1,23 @@
+{
+  "name": "sv-api",
+  "version": "0.1.0",
+  "description": "Smart Voting API",
+  "author": "Smart Voting Capstone Team",
+  "license": "GPL-3.0",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/smartvoting/api.git"
+  },
+  "bugs": {
+    "url": "https://github.com/smartvoting/api/issues"
+  },
+  "homepage": "https://github.com/smartvoting/api#readme",
+  "dependencies": {
+    "express": "^4.17.2",
+    "nodemon": "^2.0.15"
+  }
+}
