@@ -5,6 +5,8 @@
  */
 
 require("dotenv").config();
+const queries = require("./sql/frequentCommands");
+const tables = require("./sql/tableList");
 const pg = require("pg");
 const express = require("express");
 const app = express();
@@ -17,12 +19,15 @@ const pgClient = new pg.Client({
 pgClient.connect();
 
 app.get("/", function (req, res, next) {
-  pgClient.query('SELECT * FROM public."partyList"', function (error, result) {
-    if (error) {
-      console.log(error);
+  pgClient.query(
+    queries.selectAll + tables.partyList,
+    function (error, result) {
+      if (error) {
+        console.log(error);
+      }
+      res.status(200).send(result.rows);
     }
-    res.status(200).send(result.rows);
-  });
+  );
 });
 
 app.listen(process.env.PORT, process.env.HOST, () => {
