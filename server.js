@@ -14,7 +14,7 @@
  *   Project License: GNU General Public License v3.0                                  *
  *   Project Authors: Matthew Campbell, Stephen Davis, Satabdi Sangma, Michael Sirna   *
  *   George Brown College - Computer Programmer Analyst (T127)                         *
- *   Capstone Project - Winter 2022 - COMP 3059 & COMP 3078                            *
+ *   Capstone I & II Project - September 2021 to April 2022                            *
  ***************************************************************************************/
 
 require("dotenv").config();
