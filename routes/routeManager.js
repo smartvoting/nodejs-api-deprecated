@@ -17,40 +17,11 @@
  *   Capstone I & II - September 2021 to April 2022                                      *
  *****************************************************************************************/
 
-require("dotenv").config();
-// const queries = require("./sql/frequentCommands");
-// const tables = require("./sql/tableList");
-// const pg = require("pg");
-const routeManager = require("./routes/routeManager");
 const express = require("express");
 const app = express();
 
-// const pgURL = `postgresql://${process.env.RDS_USERNAME}:${process.env.RDS_PASSWORD}@${process.env.RDS_HOSTNAME}:${process.env.RDS_PORT}/${process.env.RDS_DB_NAME}`;
-// const pgClient = new pg.Client({
-//   connectionString: pgURL,
-// });
+const about = require("./about/router");
 
-// pgClient.connect();
+app.use("/about/", about);
 
-app.get("/", (req, res) => {
-  res.send("Smart Voting API - Home Page");
-});
-
-app.use(routeManager);
-// app.get("/", function (req, res, next) {
-//   pgClient.query(
-//     queries.selectAll + tables.partyList,
-//     function (error, result) {
-//       if (error) {
-//         console.log(error);
-//       }
-//       res.status(200).send(result.rows);
-//     }
-//   );
-// });
-
-app.listen(process.env.PORT, process.env.HOST, () => {
-  console.log(
-    `server is running at: http://${process.env.HOST}:${process.env.PORT}/`
-  );
-});
+module.exports = app;
