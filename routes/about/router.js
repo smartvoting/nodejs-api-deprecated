@@ -28,8 +28,8 @@ const _electionsCanada = require("./ElectionsCanada");
 const _smartVoting = require("./SmartVoting");
 const _landing = require("./Landing");
 
-app.use("/electionscanada", _electionsCanada);
-app.use("/smartvoting", _smartVoting);
+app.use("/elections-canada", _electionsCanada);
+app.use("/smart-voting", _smartVoting);
 app.use("/", _landing);
 
 module.exports = app;
