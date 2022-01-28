@@ -17,6 +17,12 @@
  *   Capstone I & II - September 2021 to April 2022                                      *
  *****************************************************************************************/
 
-module.exports = {
-  selectAll: "SELECT * FROM ",
+const _dbName = "public.";
+
+module.exports.selectAll = function (table) {
+  return `SELECT * FROM ${_dbName}${table};`;
+};
+
+module.exports.selectId = function (table, primaryKey, searchId) {
+  return `SELECT * FROM ${_dbName}${table} WHERE ${table}.${primaryKey} = ${searchId};`;
 };
