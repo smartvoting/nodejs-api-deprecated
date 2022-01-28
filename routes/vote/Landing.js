@@ -15,33 +15,19 @@
  *   Project Authors: Matthew Campbell, Stephen Davis, Satabdi Sangma, Michael Sirna     *
  *   George Brown College - Computer Programmer Analyst (T127)                           *
  *   Capstone I & II - September 2021 to April 2022                                      *
+ *****************************************************************************************
+ *   FILE: ROUTES/ABOUT/ELECTIONSCANADA.JS                                               *
+ *   URL: https://api.smartvoting.cc/vote/                                               *
+ *   NOTES: This file retrieves the entry on the DynamoDB table "systemInfo". It gets    *
+ *          entityId 2 (Elections Canada) and docId 1 (About) and returns the list as a  *
+ *          JSON document.                                                               *
  *****************************************************************************************/
 
 const express = require("express");
-const app = express();
+const router = express.Router();
 
-const _404 = require("./home/404");
-const _about = require("./about/router");
-const _admin = require("./admin/router");
-const _candidate = require("./candidate/router");
-const _contact = require("./contact/router");
-const _elections = require("./elections/router");
-const _home = require("./home/Landing");
-const _party = require("./party/router");
-const _security = require("./security/router");
-const _vote = require("./vote/router");
-const _voter = require("./voter/router");
+router.get("/", (req, res) => {
+  res.status(200).send("Smart Voting API - Vote Landing");
+});
 
-app.use("/", _home);
-app.use("/about/", _about);
-app.use("/admin/", _admin);
-app.use("/candidate/", _candidate);
-app.use("/contact/", _contact);
-app.use("/elections/", _elections);
-app.use("/security/", _security);
-app.use("/party/", _party);
-app.use("/vote/", _vote);
-app.use("/voter/", _voter);
-app.use("*", _404);
-
-module.exports = app;
+module.exports = router;

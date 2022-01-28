@@ -15,15 +15,21 @@
  *   Project Authors: Matthew Campbell, Stephen Davis, Satabdi Sangma, Michael Sirna     *
  *   George Brown College - Computer Programmer Analyst (T127)                           *
  *   Capstone I & II - September 2021 to April 2022                                      *
+ *****************************************************************************************
+ *   FILE: ROUTES/ABOUT/ROUTER.JS                                                        *
+ *   NOTES: This file handles the path requests submitted to the API through the /about  *
+ *          path. It routes the request to the approperate file for processing.          *
  *****************************************************************************************/
 
 const express = require("express");
 const app = express();
 
-const electionsCanada = require("./ElectionsCanada");
-const smartVoting = require("./SmartVoting");
+const _electionsCanada = require("./ElectionsCanada");
+const _smartVoting = require("./SmartVoting");
+const _landing = require("./Landing");
 
-app.use("/electionscanada", electionsCanada);
-app.use("/smartvoting", smartVoting);
+app.use("/electionscanada", _electionsCanada);
+app.use("/smartvoting", _smartVoting);
+app.use("/", _landing);
 
 module.exports = app;
