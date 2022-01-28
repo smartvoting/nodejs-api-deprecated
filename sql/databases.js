@@ -19,9 +19,19 @@
 //   );
 // });
 
-const _dynamoCS = "DYNAMO_CS";
+// dynamo: {
+//   cs: _dynamoCS,
+//   queries: _dynamoQueries,
+//   schemas: _dynamoSchemas,
+//   tables: _dynamoTables,
+// },
+
+const _dynamoCS = {
+  region: "us-east-1",
+  accessKeyId: process.env.AWS_ACCESS_ID,
+  secretAccessKey: process.env.AWS_SECRET_KEY,
+};
 const _dynamoQueries = require("./dynamo/queries");
-const _dynamoSchemas = require("./dynamo/schemas");
 const _dynamoTables = require("./dynamo/tables");
 
 const _pgCS = `postgresql://${process.env.RDS_USERNAME}:${process.env.RDS_PASSWORD}@${process.env.RDS_HOSTNAME}:${process.env.RDS_PORT}/${process.env.RDS_DB_NAME}`;
@@ -37,7 +47,6 @@ module.exports = {
   dynamo: {
     cs: _dynamoCS,
     queries: _dynamoQueries,
-    schemas: _dynamoSchemas,
     tables: _dynamoTables,
   },
   postgres: {
