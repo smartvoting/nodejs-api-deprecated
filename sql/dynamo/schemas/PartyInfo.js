@@ -1,4 +1,5 @@
-module.exports = {
+const _table = {
+  name: "partyInfo",
   keys: {
     partition: "partyId",
     sort: "recordType",
@@ -8,3 +9,5 @@ module.exports = {
     dateModified: "dateModified",
   },
 };
+
+module.exports = _table;

@@ -1,11 +1,12 @@
 const _table = {
-  name: "partyPlatforms",
+  name: "agencyInfo",
+  
   keys: {
-    partition: "partyId",
-    sort: "topicId",
+    partition: "agencyCode",
+    sort: "docType",
   },
   record: {
-    topicBody: "topicBody",
+    bodyText: "bodyText",
     dateModified: "dateModified",
   },
 };

@@ -1,4 +1,5 @@
-module.exports = {
+const _table = {
+  name: "partyBlogs",
   keys: {
     partition: "partyId",
     sort: "blogId",
@@ -10,3 +11,5 @@ module.exports = {
     writerId: "writerId",
   },
 };
+
+module.exports = _table;
