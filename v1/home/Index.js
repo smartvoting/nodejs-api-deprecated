@@ -16,20 +16,58 @@
  *   George Brown College - Computer Programmer Analyst (T127)                           *
  *   Capstone I & II - September 2021 to April 2022                                      *
  *****************************************************************************************
- *   FILE: ROUTES/ABOUT/ROUTER.JS                                                        *
- *   NOTES: This file handles the path requests submitted to the API through the /about  *
- *          path. It routes the request to the approperate file for processing.          *
+ *   FILE: ROUTES/ABOUT/ELECTIONSCANADA.JS                                               *
+ *   URL: https://api.smartvoting.cc/                                                    *
+ *   NOTES: This file retrieves the entry on the DynamoDB table "systemInfo". It gets    *
+ *          entityId 2 (Elections Canada) and docId 1 (About) and returns the list as a  *
+ *          JSON document.                                                               *
  *****************************************************************************************/
 
+const db = require("../../sql/databases");
+const AWS = require("aws-sdk");
 const express = require("express");
-const app = express();
+const router = express.Router();
 
-const _electionsCanada = require("./ElectionsCanada");
-const _smartVoting = require("./SmartVoting");
-const _landing = require("./Landing");
+router.get("/:docType/:id", (req, res) => {
+  let _id = req.params.id;
+  let _docType = req.params.docType;
+  let _agencyCode = "";
 
-app.use("/elections-canada", _electionsCanada);
-app.use("/smart-voting", _smartVoting);
-app.use("/", _landing);
+  switch (_id) {
+    case "elections-canada":
+      _agencyCode = "ec";
+      break;
+    case "smart-voting":
+      _agencyCode = "sv";
+      break;
+    default:
+      res.status(207).send("CRAP");
+  }
 
-module.exports = app;
+  AWS.config.update(db.dynamo.cs);
+  const _aws = new AWS.DynamoDB.DocumentClient();
+  let _params = {
+    TableName: db.dynamo.tables.agencyInfo.name,
+    Key: {
+      agencyCode: _agencyCode,
+      docType: _docType,
+    },
+  };
+  _aws.get(_params, (qerr, qres) => {
+    if (qerr) {
+      res.status(204).send(qerr);
+    } else {
+      let _item = {
+        dateModified: qres.Item.dateModified,
+        bodyText: qres.Item.bodyText,
+      };
+      res.status(200).send(_item);
+    }
+  });
+});
+
+router.get("/", (req, res) => {
+  res.status(200).send("Smart Voting API - Home Page");
+});
+
+module.exports = router;

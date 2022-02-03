@@ -1,9 +1,8 @@
 const _table = {
-  name: '"platformTopics"',
+  name: "platform_topics",
   schema: {
-    topicId: '"topicId"',
-    topicTitle: '"topicTitle"',
-    topicDescription: '"topicDescription"',
+    topicId: "topic_id",
+    topicTitle: "topic_title",
   },
 };
 

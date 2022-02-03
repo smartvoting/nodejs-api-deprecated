@@ -21,27 +21,23 @@ const express = require("express");
 const app = express();
 
 const _404 = require("./home/404");
-const _about = require("./about/router");
 const _admin = require("./admin/router");
 const _candidate = require("./candidate/router");
 const _contact = require("./contact/router");
 const _elections = require("./elections/router");
-const _home = require("./home/Landing");
+const _home = require("./home/Index");
 const _party = require("./party/router");
-const _security = require("./security/router");
 const _vote = require("./vote/router");
 const _voter = require("./voter/router");
 
-app.use("/", _home);
-app.use("/about/", _about);
 app.use("/admin/", _admin);
 app.use("/candidate/", _candidate);
 app.use("/contact/", _contact);
 app.use("/elections/", _elections);
-app.use("/security/", _security);
 app.use("/party/", _party);
 app.use("/vote/", _vote);
 app.use("/voter/", _voter);
+app.use("/", _home);
 app.use("*", _404);
 
 module.exports = app;

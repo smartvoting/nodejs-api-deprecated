@@ -18,7 +18,6 @@
  *****************************************************************************************/
 
 const _partyList = require("./schemas/partyList");
-const _partyContact = require("./schemas/partyContact");
 const _partyStaff = require("./schemas/partyStaff");
 const _ridingList = require("./schemas/ridingList");
 const _roleList = require("./schemas/roleList");
@@ -26,13 +25,14 @@ const _voterList = require("./schemas/voterList");
 const _voterSecurity = require("./schemas/voterSecurity");
 const _electionOfficials = require("./schemas/electionOfficials");
 const _platformTopics = require("./schemas/platformTopics");
+const _provinceList = require("./schemas/provinceList");
 
 const _tables = {
   electionOfficials: _electionOfficials,
-  partyContact: _partyContact,
   partyList: _partyList,
   partyStaff: _partyStaff,
   platformTopics: _platformTopics,
+  provinceList: _provinceList,
   ridingList: _ridingList,
   roleList: _roleList,
   voterList: _voterList,

@@ -1,8 +1,9 @@
 const _table = {
-  name: '"roleList"',
+  name: "role_list",
   schema: {
-    roleId: '"roleId"',
-    roleTitle: '"roleTitle"',
+    roleId: "role_id",
+    roleTitle: "role_title",
+    roleGroup: "role_group",
   },
 };
 

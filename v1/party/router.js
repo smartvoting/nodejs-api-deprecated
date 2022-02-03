@@ -16,17 +16,20 @@
  *   George Brown College - Computer Programmer Analyst (T127)                           *
  *   Capstone I & II - September 2021 to April 2022                                      *
  *****************************************************************************************
- *   FILE: ROUTES/ABOUT/ROUTER.JS                                                        *
- *   NOTES: This file handles the path requests submitted to the API through the /about  *
+ *   FILE: ROUTES/PARTIES/ROUTER.JS                                                      *
+ *   NOTES: This file handles the path requests submitted to the API through the /voters *
  *          path. It routes the request to the approperate file for processing.          *
  *****************************************************************************************/
 
- const express = require("express");
- const app = express();
- 
- const _landing = require("./Landing");
- 
- app.use("/", _landing);
- 
- module.exports = app;
- 
+const express = require("express");
+const app = express();
+
+const _list = require("./List");
+const _party = require("./Party");
+const _landing = require("./Landing");
+
+app.use("/list", _list);
+app.use("/", _party);
+// app.use("/", _landing);
+
+module.exports = app;

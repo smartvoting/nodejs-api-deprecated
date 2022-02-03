@@ -23,6 +23,6 @@ module.exports.selectAll = function (table) {
   return `SELECT * FROM ${_dbName}${table};`;
 };
 
-module.exports.selectId = function (table, primaryKey, searchId) {
+module.exports.selectByPrimaryKey = function (table, primaryKey, searchId) {
   return `SELECT * FROM ${_dbName}${table} WHERE ${table}.${primaryKey} = ${searchId};`;
 };

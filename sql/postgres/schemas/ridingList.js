@@ -1,12 +1,13 @@
 const _table = {
-  name: '"ridingList"',
+  name: "riding_list",
   schema: {
-    ridingId: '"ridingId"',
-    managerId: '"managerId"',
-    ridingName: '"ridingName"',
-    officeAddress: '"officeAddress"',
-    emailAddress: '"emailAddress"',
-    phoneNumber: '"phoneNumber"',
+    ridingId: "riding_id",
+    managerId: "employee_id",
+    ridingName: "riding_name",
+    officeAddress: "office_address",
+    emailAddress: "email_address",
+    phoneNumber: "phone_number",
+    faxNumber: "fax_number",
   },
 };
 

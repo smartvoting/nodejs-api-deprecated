@@ -17,17 +17,25 @@
  *   Capstone I & II - September 2021 to April 2022                                      *
  *****************************************************************************************
  *   FILE: ROUTES/ABOUT/ELECTIONSCANADA.JS                                               *
- *   URL: https://api.smartvoting.cc/security/                                           *
+ *   URL: https://api.smartvoting.cc/vote/                                               *
  *   NOTES: This file retrieves the entry on the DynamoDB table "systemInfo". It gets    *
  *          entityId 2 (Elections Canada) and docId 1 (About) and returns the list as a  *
  *          JSON document.                                                               *
  *****************************************************************************************/
 
+const db = require("../../sql/databases");
 const express = require("express");
 const router = express.Router();
 
-router.get("/", (req, res) => {
-  res.status(200).send("Smart Voting API - Security Landing");
+router.get("/:voterId/step/:id/", (req, res) => {
+  let _stepId = req.params.id;
+  let _voterId = req.params.voterId;
+  processVotingStep(_stepId, _voterId);
+  res
+    .status(200)
+    .send(`Smart Voting API - Vote Step - ID: ${_stepId} / ${_voterId}`);
 });
+
+function processVotingStep(_stepId, _voterId) {}
 
 module.exports = router;

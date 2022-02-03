@@ -1,13 +1,14 @@
 const _table = {
-  name: '"voterList"',
+  name: "voter_list",
   schema: {
-    voterId: '"voterId"',
-    ridingId: '"ridingId"',
-    firstName: '"firstName"',
-    lastName: '"lastName"',
-    homeAddress: '"homeAddress"',
-    emailAddress: '"emailAddress"',
-    phoneNumber: '"phoneNumber"',
+    voterId: "voter_id",
+    ridingId: "riding_id",
+    firstName: "first_name",
+    middleName: "middle_name",
+    lastName: "last_name",
+    homeAddress: "home_address",
+    emailAddress: "email_address",
+    phoneNumber: "phone_number",
   },
 };
 

@@ -1,13 +1,12 @@
 const _table = {
-  name: '"electionOfficials"',
+  name: "election_officials",
   schema: {
-    personId: '"personId"',
-    employeeId: '"employeeId"',
-    roleId: '"roleId"',
-    firstName: '"firstName"',
-    lastName: '"lastName"',
-    emailAddress: '"emailAddress"',
-    phoneNumber: '"phoneNumber"',
+    employeeId: "employee_id",
+    roleId: "role_id",
+    firstName: "first_name",
+    lastName: "last_name",
+    emailAddress: "email_address",
+    phoneNumber: "phone_number",
   },
 };
 
