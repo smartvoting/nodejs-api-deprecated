@@ -28,7 +28,7 @@ const AWS = require("aws-sdk");
 const express = require("express");
 const router = express.Router();
 
-router.get("/:docType/:id", (req, res) => {
+router.get("/:docType/:id/", (req, res) => {
   let _id = req.params.id;
   let _docType = req.params.docType;
   let _agencyCode = "";

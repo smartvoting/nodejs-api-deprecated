@@ -51,6 +51,7 @@ module.exports = {
   },
   postgres: {
     cs: _pgCS,
+    dbName: "public.",
     queries: _pgQueries,
     tables: _pgTables,
   },

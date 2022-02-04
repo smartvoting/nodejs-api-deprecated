@@ -23,51 +23,69 @@
  *          JSON document.                                                               *
  *****************************************************************************************/
 
-const db = require("../../sql/databases");
-const AWS = require("aws-sdk");
-const express = require("express");
-const router = express.Router();
-const pg = require("pg");
-const pgClient = new pg.Client({
-  connectionString: db.postgres.cs,
+import { cs } from "../../databases/postgres/data";
+import { DynamoDB } from "aws-sdk";
+import { Router } from "express";
+const router = Router();
+import { Client } from "pg";
+const pgClient = new Client({
+  connectionString: cs,
 });
 
 pgClient.connect();
 
-const validatePartyId = (_partyId) =>
-  Number.isInteger(_partyId) && _partyId > 0;
+const validateId = (id) => {
+  if (!isNaN(id)) {
+    let _id = parseInt(id);
+    return Number.isInteger(_id) && _id > 0;
+  } else {
+    return false;
+  }
+};
 
-router.get("/:partyId/platform/", async (req, res) => {
-  let _returnJSON = {};
-  // let _labels;
+// ROUTE: /v1/party/:id/platform/:topicId
+router.get("/:partyId/platform/:topicId", (req, res) => {
   let _partyId = req.params.partyId;
-  // let _topics = db.postgres.queries.selectAll(
-  //   db.postgres.tables.platformTopics.name
-  // );
-  // pgClient.query(_topics, (qerr, qres) => {
-  //   if (qerr) {
-  //     res.status(204).send("No rows found.");
-  //   } else {
-  //     _returnJSON.labels = qres.rows;
-  //     // console.log(_returnJSON);
-  //   }
-  // });
-  console.log(_returnJSON.labels);
-  // console.log(_labels);
+  let _validPartyId = validateId(_partyId);
+  let _topicId = req.params.topicId;
+  let _validTopicId = validateId(_topicId);
+
+  if (_validPartyId) {
+    if (_validTopicId) {
+      const _aws = new DynamoDB.DocumentClient();
+      let _params = {
+        TableName: 
+      }
+    } else {
+      res
+        .status(400)
+        .send(
+          "Topic ID must be a whole number, greater than 0, and not a string."
+        );
+    }
+  } else {
+    res
+      .status(400)
+      .send(
+        "Party ID must be a whole number, greater than 0, and not a string."
+      );
+  }
 });
 
-router.get("/:partyId", (req, res) => {
+// ROUTE: /v1/party/:id/platform/
+router.get("/:partyId/platform/", (req, res) => {
   let _partyId = req.params.partyId;
+  let _validId = validateId(_partyId);
 
-  if (validatePartyId(_partyId)) {
-    let _query = db.postgres.queries.selectId(
-      db.postgres.tables.partyList.name,
-      db.postgres.tables.partyList.schema.partyId,
-      _partyId
-    );
+  if (_validId) {
+    let _query = `SELECT * FROM platform_topics;`;
     pgClient.query(_query, (qerr, qres) => {
-      if (qerr) res.status(204).send("No rows found.");
-      else res.status(200).send(qres.rows);
+      if (qerr) res.status(200).send("An error occured.");
+      if (qres.rows.length > 0) {
+        res.status(200).send(qres.rows);
+      } else {
+        res.status(200).send("An error occured.");
+      }
     });
   } else {
     res
@@ -78,4 +96,32 @@ router.get("/:partyId", (req, res) => {
   }
 });
 
-module.exports = router;
+// ROUTE: /v1/party/:id/
+router.get("/:partyId", (req, res) => {
+  let _partyId = req.params.partyId;
+  let _validId = validateId(_partyId);
+
+  if (_validId) {
+    let _query = `SELECT * FROM party_list WHERE party_id = ${_partyId};`;
+    pgClient.query(_query, (qerr, qres) => {
+      if (qerr) res.status(200).send("An error occured.");
+      if (qres.rows.length > 0) {
+        res.status(200).send(qres.rows);
+      } else {
+        res
+          .status(200)
+          .send(
+            `No data found for Party ID: ${_partyId}. Please try a different ID number.`
+          );
+      }
+    });
+  } else {
+    res
+      .status(400)
+      .send(
+        "Party ID must be a whole number, greater than 0, and not a string."
+      );
+  }
+});
+
+export default router;

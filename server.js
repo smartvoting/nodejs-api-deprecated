@@ -18,12 +18,10 @@
  *****************************************************************************************/
 
 require("dotenv").config();
-
 const _host = process.env.HOST;
 const _port = process.env.PORT;
 const _version = process.env.API_VERSION;
 const _routeManager = require(`./${_version}/routeManager`);
-// const _routeManager = require("./v1/routeManager");
 const express = require("express");
 const app = express();
 

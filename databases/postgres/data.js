@@ -15,31 +15,32 @@
  *   Project Authors: Matthew Campbell, Stephen Davis, Satabdi Sangma, Michael Sirna     *
  *   George Brown College - Computer Programmer Analyst (T127)                           *
  *   Capstone I & II - September 2021 to April 2022                                      *
- *****************************************************************************************
- *   FILE: ROUTES/PARTIES/PARTY.JS                                                       *
- *   URL: https://api.smartvoting.cc/party/list/                                         *
- *   NOTES: This file retrieves the entry on the DynamoDB table "systemInfo". It gets    *
- *          entityId 2 (Elections Canada) and docId 1 (About) and returns the list as a  *
- *          JSON document.                                                               *
  *****************************************************************************************/
 
-import { cs } from "../../databases/postgres/data";
-import { Router } from "express";
-const router = Router();
-import { Client } from "pg";
-const pgClient = new Client({
-  connectionString: cs,
-});
+const _cs = `postgresql://${process.env.RDS_USERNAME}:${process.env.RDS_PASSWORD}@${process.env.RDS_HOSTNAME}:${process.env.RDS_PORT}/${process.env.RDS_DB_NAME}`;
+const _partyList = require("./schemas/party_list");
+const _partyStaff = require("./schemas/party_staff");
+const _ridingList = require("./schemas/riding_list");
+const _roleList = require("./schemas/role_list");
+const _voterList = require("./schemas/voter_list");
+const _voterSecurity = require("./schemas/voter_security");
+const _electionOfficials = require("./schemas/election_officials");
+const _platformTopics = require("./schemas/platform_topics");
+const _provinceList = require("./schemas/province_list");
 
-pgClient.connect();
+const _data = {
+  cs: _cs,
+  tables: {
+    partyList: _partyList,
+    partyStaff: _partyStaff,
+    ridingList: _ridingList,
+    roleList: _roleList,
+    voterList: _voterList,
+    voterSecurity: _voterSecurity,
+    electionOfficials: _electionOfficials,
+    platformTopics: _platformTopics,
+    provinceList: _provinceList,
+  },
+};
 
-// ROUTE: /v1/party/list/
-router.get("/", (req, res) => {
-  let _query = `SELECT * FROM party_list;`;
-  pgClient.query(_query, (qerr, qres) => {
-    if (qerr) res.status(200).send("No rows found.");
-    else res.status(200).send(qres.rows);
-  });
-});
-
-export default router;
+module.exports = _data;
