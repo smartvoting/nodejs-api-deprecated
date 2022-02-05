@@ -18,15 +18,31 @@
  *****************************************************************************************/
 
 require("dotenv").config();
+
 const _host = process.env.HOST;
 const _port = process.env.PORT;
 const _version = process.env.API_VERSION;
-const _routeManager = require(`./${_version}/routeManager`);
-const express = require("express");
-const app = express();
+const _devURL = `http://${_host}:${_port}/${_version}`;
 
-app.use(`/${_version}`, _routeManager);
+const express = require("express");
+const bodyParser = require("body-parser");
+const cors = require("cors");
+const app = express();
+const db = require(`./${_version}/models`);
+db.sequelize.sync();
+
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(cors());
+
+app.get("/v1/", (req, res) => {
+  res.status(202).json({ message: `Smart Voting API Root - ${_version}` });
+});
+
+// Routes
+require(`./${_version}/routes/api_keys.routes`)(app);
+require(`./${_version}/routes/province_list.routes`)(app);
 
 app.listen(_port, _host, () => {
-  console.log(`server is running at: http://${_host}:${_port}/${_version}`);
+  console.log(`server is running at: ${_devURL}`);
 });
