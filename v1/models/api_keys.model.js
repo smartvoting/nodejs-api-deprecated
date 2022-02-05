@@ -28,6 +28,7 @@ module.exports = (sequelize, Sequelize) => {
     {
       createdAt: "created",
       updatedAt: "updated",
+      freezeTableName: true,
     }
   );
   return apiKeys;

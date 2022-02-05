@@ -21,7 +21,7 @@ exports.create = (req, res) => {
     .catch((error) => {
       res.status(500).json({
         message:
-          error.message || "Some error occured while creating a new api key.",
+          error.message || "An error occured while creating a new api key.",
       });
     });
 };
@@ -35,8 +35,7 @@ exports.findAll = (req, res) => {
     })
     .catch((error) => {
       res.status(500).json({
-        message:
-          error.message || "Some error occured while retrieving api keys.",
+        message: error.message || "An error occured while retrieving api keys.",
       });
     });
 };
@@ -51,7 +50,7 @@ exports.findOne = (req, res) => {
       res.status(500).json({
         message:
           error.message ||
-          "Some error occured while retrieving api key with id: " + id,
+          "An error occured while retrieving api key with id: " + id,
       });
     });
 };
@@ -79,7 +78,7 @@ exports.update = (req, res) => {
       res.status(500).json({
         message:
           error.message ||
-          "Some error occured while updating api key with id: " + id,
+          "An error occured while updating api key with id: " + id,
       });
     });
 };
@@ -98,7 +97,7 @@ exports.delete = (req, res) => {
       res.status(500).json({
         message:
           error.message ||
-          "Some error occured while deleting api key with id: " + id,
+          "An error occured while deleting api key with id: " + id,
       });
     });
 };

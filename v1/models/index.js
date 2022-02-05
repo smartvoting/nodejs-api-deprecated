@@ -17,5 +17,6 @@ db.sequelize = sequelize;
 
 db.api_keys = require("./api_keys.model")(sequelize, Sequelize);
 db.province_list = require("./province_list.model")(sequelize, Sequelize);
+db.province_list = require("./party_list.model")(sequelize, Sequelize);
 
 module.exports = db;

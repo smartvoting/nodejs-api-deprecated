@@ -29,7 +29,7 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const app = express();
 const db = require(`./${_version}/models`);
-db.sequelize.sync();
+// db.sequelize.sync();
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -42,6 +42,7 @@ app.get("/v1/", (req, res) => {
 // Routes
 require(`./${_version}/routes/api_keys.routes`)(app);
 require(`./${_version}/routes/province_list.routes`)(app);
+require(`./${_version}/routes/party_list.routes`)(app);
 
 app.listen(_port, _host, () => {
   console.log(`server is running at: ${_devURL}`);
