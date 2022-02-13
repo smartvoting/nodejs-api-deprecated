@@ -54,6 +54,10 @@ require(`./${_version}/routes/party.routes`)(app, _version);
 // require(`./${_version}/routes/voter.routes`)(app, _version);
 require(`./${_version}/routes/general.routes`)(app, _version);
 
-app.listen(_port, _host, () => {
-  console.log(`server is running at: ${_devURL}`);
+// app.listen(_port, _host, () => {
+//   console.log(`server is running at: ${_devURL}`);
+// });
+
+app.listen(_port || 3000, () => {
+  console.log("server is running");
 });
