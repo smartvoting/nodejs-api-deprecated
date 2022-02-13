@@ -19,14 +19,39 @@
 
 require("dotenv").config();
 
-const _routeManager = require("./routes/routeManager");
+const _port = process.env.PORT;
+const _version = process.env.API_VERSION;
+
+const AWS = require("aws-sdk");
 const express = require("express");
+const bodyParser = require("body-parser");
+const cors = require("cors");
 const app = express();
+const db = require(`./${_version}/models`);
+const dynamoConfig = require("./config/dynamo.config");
+// db.sequelize.sync();
+AWS.config.update(dynamoConfig);
 
-app.use(_routeManager);
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(cors());
 
-app.listen(process.env.PORT, process.env.HOST, () => {
-  console.log(
-    `server is running at: http://${process.env.HOST}:${process.env.PORT}/`
-  );
+app.get("/v1/", (req, res) => {
+  res.status(202).json({ message: `Smart Voting API Root - ${_version}` });
+});
+
+// Routes
+// require(`./${_version}/routes/admin.eo.routes`)(app, _version);
+// require(`./${_version}/routes/admin.lr.routes`)(app, _version);
+// require(`./${_version}/routes/admin.pp.routes`)(app, _version);
+require(`./${_version}/routes/api_keys.routes`)(app, _version);
+// require(`./${_version}/routes/candidate.routes`)(app, _version);
+// require(`./${_version}/routes/election.routes`)(app, _version);
+require(`./${_version}/routes/party.routes`)(app, _version);
+// require(`./${_version}/routes/vote.routes`)(app, _version);
+// require(`./${_version}/routes/voter.routes`)(app, _version);
+require(`./${_version}/routes/general.routes`)(app, _version);
+
+app.listen(_port || 3000, () => {
+  console.log("server is running");
 });
