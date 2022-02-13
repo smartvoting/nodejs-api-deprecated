@@ -37,23 +37,28 @@ exports.blogList = (req, res) => {
   const _aws = new AWS.DynamoDB.DocumentClient();
   let _params = {
     TableName: "partyBlogs",
-    Key: {
-      partyId: `${_id}`,
+    KeyConditionExpression: "#pId = :p",
+    ExpressionAttributeNames: {
+      "#pId": "partyId",
+    },
+    ExpressionAttributeValues: {
+      ":p": _id,
     },
   };
-  _aws.get(_params, (error, reply) => {
+  _aws.query(_params, (error, reply) => {
     if (error) {
-      res.status(200).send({
+      res.status(200).json({
         message:
           error.message || "An error occured while retrieving the blog list.",
       });
     } else {
-      // let _item = {
-      //   blogId: reply.Item.blogId,
-      //   datePosted: reply.Item.datePosted,
-      //   writerId: reply.Item.writerId,
-      // };
-      res.status(200).send(reply);
+      if (reply.Count == 0) {
+        res.status(200).json({
+          message: "No blog posts found for this party.",
+        });
+      } else {
+        res.status(200).send(reply.Items);
+      }
     }
   });
 };
@@ -61,23 +66,33 @@ exports.blogList = (req, res) => {
 exports.blogPost = (req, res) => {
   let _id = parseInt(req.params.id);
   let _postId = req.params.postId;
-  console.log(`ID: ${_id} ||| Post ID: ${_postId}`);
   const _aws = new AWS.DynamoDB.DocumentClient();
   let _params = {
     TableName: "partyBlogs",
-    Key: {
-      partyId: `${_id}`,
-      blogId: `${_postId}`,
+    KeyConditionExpression: "#pId = :p and #bId = :b",
+    ExpressionAttributeNames: {
+      "#pId": "partyId",
+      "#bId": "blogId",
+    },
+    ExpressionAttributeValues: {
+      ":p": _id,
+      ":b": _postId,
     },
   };
-  _aws.get(_params, (error, reply) => {
+  _aws.query(_params, (error, reply) => {
     if (error) {
       res.status(200).send({
         message:
-          error.message || "An error occured while retrieving the blog post.",
+          error.message || "An error occured while retrieving the blog list.",
       });
     } else {
-      res.status(200).send(reply);
+      if (reply.Count == 0) {
+        res.status(200).json({
+          message: "No blog post found for this id number.",
+        });
+      } else {
+        res.status(200).send(reply.Items);
+      }
     }
   });
 };
