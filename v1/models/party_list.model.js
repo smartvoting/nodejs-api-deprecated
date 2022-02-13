@@ -1,6 +1,6 @@
 module.exports = (sequelize, Sequelize) => {
   const partyList = sequelize.define(
-    "party-list",
+    "party_list",
     {
       party_id: {
         type: Sequelize.INTEGER,

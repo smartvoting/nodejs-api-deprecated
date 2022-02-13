@@ -1,5 +1,4 @@
-module.exports = (app) => {
-  const _version = process.env.API_VERSION;
+module.exports = (app, _version) => {
   const apiKeys = require("../controllers/api_keys.controller");
   var router = require("express").Router();
 
