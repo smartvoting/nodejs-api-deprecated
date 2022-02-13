@@ -19,10 +19,8 @@
 
 require("dotenv").config();
 
-const _host = process.env.HOST;
 const _port = process.env.PORT;
 const _version = process.env.API_VERSION;
-const _devURL = `http://${_host}:${_port}/${_version}`;
 
 const AWS = require("aws-sdk");
 const express = require("express");
@@ -53,10 +51,6 @@ require(`./${_version}/routes/party.routes`)(app, _version);
 // require(`./${_version}/routes/vote.routes`)(app, _version);
 // require(`./${_version}/routes/voter.routes`)(app, _version);
 require(`./${_version}/routes/general.routes`)(app, _version);
-
-// app.listen(_port, _host, () => {
-//   console.log(`server is running at: ${_devURL}`);
-// });
 
 app.listen(_port || 3000, () => {
   console.log("server is running");
