@@ -1,6 +1,7 @@
 const AWS = require("aws-sdk");
 const db = require("../models");
 const PartyList = db.party_list;
+const PlatformTopics = db.platform_topics;
 
 exports.findAll = (req, res) => {
   PartyList.findAll({
@@ -81,7 +82,7 @@ exports.blogPost = (req, res) => {
   };
   _aws.query(_params, (error, reply) => {
     if (error) {
-      res.status(200).send({
+      res.status(200).json({
         message:
           error.message || "An error occured while retrieving the blog list.",
       });
@@ -95,4 +96,51 @@ exports.blogPost = (req, res) => {
       }
     }
   });
+};
+
+exports.platform = (req, res) => {
+  PlatformTopics.findAll({
+    order: ["topic_title"],
+  })
+    .then((data) => {
+      res.status(200).send(data);
+    })
+    .catch((error) => {
+      res.status(500).json({
+        message:
+          error.message ||
+          "An error occured while retrieving the platform topic list.",
+      });
+    });
+};
+
+exports.platformPolicy = async (req, res) => {
+  let _partyId = parseInt(req.params.id);
+  let _topicId = parseInt(req.params.topicId);
+  let _data = {};
+  const _aws = new AWS.DynamoDB.DocumentClient();
+  let _params = {
+    TableName: "partyPlatforms",
+    KeyConditionExpression: "#pId = :p and #tId = :s",
+    ExpressionAttributeNames: {
+      "#pId": "partyId",
+      "#tId": "topicId",
+    },
+    ExpressionAttributeValues: {
+      ":p": _partyId,
+      ":s": _topicId,
+    },
+  };
+  try {
+    const _topic = await PlatformTopics.findByPk(_topicId);
+    const _policy = await _aws.query(_params).promise();
+    _data.topic = _topic.dataValues;
+    _data.policy = _policy.Items[0];
+    res.status(200).send(_data);
+  } catch (error) {
+    res.status(500).json({
+      message:
+        error.message || "An error occured while retrieving the topic policy.",
+    });
+  }
 };
