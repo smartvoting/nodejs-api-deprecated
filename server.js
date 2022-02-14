@@ -19,15 +19,15 @@
 
 require("dotenv").config();
 
-const _port = process.env.PORT;
-const _version = process.env.API_VERSION;
+const port = process.env.PORT;
+const version = process.env.API_VERSION;
 
 const AWS = require("aws-sdk");
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const app = express();
-const db = require(`./${_version}/models`);
+const db = require(`./${version}/models`);
 const dynamoConfig = require("./config/dynamo.config");
 // db.sequelize.sync();
 AWS.config.update(dynamoConfig);
@@ -37,21 +37,21 @@ app.use(bodyParser.json());
 app.use(cors());
 
 app.get("/v1/", (req, res) => {
-  res.status(202).json({ message: `Smart Voting API Root - ${_version}` });
+  res.status(202).json({ message: `Smart Voting API Root - ${version}` });
 });
 
 // Routes
-// require(`./${_version}/routes/admin.eo.routes`)(app, _version);
-// require(`./${_version}/routes/admin.lr.routes`)(app, _version);
-// require(`./${_version}/routes/admin.pp.routes`)(app, _version);
-require(`./${_version}/routes/api_keys.routes`)(app, _version);
-// require(`./${_version}/routes/candidate.routes`)(app, _version);
-// require(`./${_version}/routes/election.routes`)(app, _version);
-require(`./${_version}/routes/party.routes`)(app, _version);
-// require(`./${_version}/routes/vote.routes`)(app, _version);
-// require(`./${_version}/routes/voter.routes`)(app, _version);
-require(`./${_version}/routes/general.routes`)(app, _version);
+// require(`./${version}/routes/admin.eo.routes`)(app, version);
+// require(`./${version}/routes/admin.lr.routes`)(app, version);
+// require(`./${version}/routes/admin.pp.routes`)(app, version);
+require(`./${version}/routes/api_keys.routes`)(app, version);
+// require(`./${version}/routes/candidate.routes`)(app, version);
+// require(`./${version}/routes/election.routes`)(app, version);
+require(`./${version}/routes/party.routes`)(app, version);
+// require(`./${version}/routes/vote.routes`)(app, version);
+// require(`./${version}/routes/voter.routes`)(app, version);
+require(`./${version}/routes/general.routes`)(app, version);
 
-app.listen(_port || 3000, () => {
+app.listen(port || 3000, () => {
   console.log("server is running");
 });

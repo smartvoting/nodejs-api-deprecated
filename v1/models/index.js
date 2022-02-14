@@ -19,5 +19,9 @@ db.api_keys = require("./api_keys.model")(sequelize, Sequelize);
 db.party_list = require("./party_list.model")(sequelize, Sequelize);
 db.platform_topics = require("./platform_topics.model")(sequelize, Sequelize);
 db.province_list = require("./province_list.model")(sequelize, Sequelize);
+db.volunteer_applications = require("./volunteer_applications.model")(
+  sequelize,
+  Sequelize
+);
 
 module.exports = db;
