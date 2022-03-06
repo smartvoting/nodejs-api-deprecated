@@ -36,22 +36,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cors());
 
-app.get("/v1/", (req, res) => {
+app.get(`/${version}/`, (req, res) => {
   res.status(202).json({ message: `Smart Voting API Root - ${version}` });
 });
 
-// Routes
-// require(`./${version}/routes/admin.eo.routes`)(app, version);
-// require(`./${version}/routes/admin.lr.routes`)(app, version);
-// require(`./${version}/routes/admin.pp.routes`)(app, version);
-require(`./${version}/routes/api_keys.routes`)(app, version);
-// require(`./${version}/routes/candidate.routes`)(app, version);
-// require(`./${version}/routes/election.routes`)(app, version);
-require(`./${version}/routes/party.routes`)(app, version);
-require(`./${version}/routes/opennorth.routes`)(app, version);
-// require(`./${version}/routes/vote.routes`)(app, version);
-// require(`./${version}/routes/voter.routes`)(app, version);
-require(`./${version}/routes/general.routes`)(app, version);
+require(`./${version}/routes/`)(app, version);
 
 app.listen(port, () => {
   console.log(`server is running at: http://localhost:${port}/${version}/`);

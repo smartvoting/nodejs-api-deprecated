@@ -25,7 +25,7 @@ module.exports = (sequelize, Sequelize) => {
         allowNull: false,
         validate: {
           notNull: {
-            msg: "Your first name is required.",
+            message: "Your first name is required.",
           },
         },
       },
@@ -34,7 +34,7 @@ module.exports = (sequelize, Sequelize) => {
         allowNull: false,
         validate: {
           notNull: {
-            msg: "Your last name is required.",
+            message: "Your last name is required.",
           },
         },
       },
@@ -43,7 +43,7 @@ module.exports = (sequelize, Sequelize) => {
         allowNull: false,
         validate: {
           notNull: {
-            msg: "Your phone number is required.",
+            message: "Your phone number is required.",
           },
         },
       },
@@ -52,10 +52,10 @@ module.exports = (sequelize, Sequelize) => {
         allowNull: false,
         validate: {
           isEmail: {
-            msg: "A valid email address is required.",
+            message: "A valid email address is required.",
           },
           notNull: {
-            msg: "Your email address is required.",
+            message: "Your email address is required.",
           },
         },
       },
@@ -64,7 +64,8 @@ module.exports = (sequelize, Sequelize) => {
         allowNull: false,
         validate: {
           notNull: {
-            msg: "Please indicate if you are a permanent resident or citizen of Canada.",
+            message:
+              "Please indicate if you are a permanent resident or citizen of Canada.",
           },
         },
       },
@@ -73,7 +74,8 @@ module.exports = (sequelize, Sequelize) => {
         allowNull: false,
         validate: {
           notNull: {
-            msg: "Please indicate if you are a past volunteer with any political party.",
+            message:
+              "Please indicate if you are a past volunteer with any political party.",
           },
         },
       },
@@ -82,7 +84,7 @@ module.exports = (sequelize, Sequelize) => {
         allowNull: false,
         validate: {
           notNull: {
-            msg: "Please indicate if you are a registered party member.",
+            message: "Please indicate if you are a registered party member.",
           },
         },
       },

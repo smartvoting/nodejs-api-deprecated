@@ -28,7 +28,7 @@ exports.findAll = (req, res) => {
     })
     .catch((error) => {
       res.status(500).json({
-        msg:
+        message:
           error.message || "An error occured while retrieving the party list.",
       });
     });
@@ -42,7 +42,7 @@ exports.findOne = (req, res) => {
     })
     .catch((error) => {
       res.status(500).json({
-        msg:
+        message:
           error.message ||
           "An error occured while retrieving the party with id number " + _id,
       });
@@ -65,13 +65,13 @@ exports.blogList = (req, res) => {
   _aws.query(_params, (error, reply) => {
     if (error) {
       res.status(500).json({
-        msg:
+        message:
           error.message || "An error occured while retrieving the blog list.",
       });
     } else {
       if (reply.Count == 0) {
         res.status(200).json({
-          msg: "No blog posts found for this party.",
+          message: "No blog posts found for this party.",
         });
       } else {
         res.status(200).send(reply.Items);
@@ -99,13 +99,13 @@ exports.blogPost = (req, res) => {
   _aws.query(_params, (error, reply) => {
     if (error) {
       res.status(500).json({
-        msg:
+        message:
           error.message || "An error occured while retrieving the blog list.",
       });
     } else {
       if (reply.Count == 0) {
         res.status(200).json({
-          msg: "No blog post found for this id number.",
+          message: "No blog post found for this id number.",
         });
       } else {
         res.status(200).send(reply.Items);
@@ -123,7 +123,7 @@ exports.platform = (req, res) => {
     })
     .catch((error) => {
       res.status(500).json({
-        msg:
+        message:
           error.message ||
           "An error occured while retrieving the platform topic list.",
       });
@@ -155,7 +155,7 @@ exports.platformPolicy = async (req, res) => {
     res.status(200).send(_data);
   } catch (error) {
     res.status(500).json({
-      msg:
+      message:
         error.message || "An error occured while retrieving the topic policy.",
     });
   }
@@ -196,19 +196,19 @@ exports.volunteerApply = async (req, res) => {
     sendEmail
       .then((data) => {
         res.status(200).json({
-          msg: "Application submitted",
+          message: "Application submitted",
         });
       })
       .catch((error) => {
         res.status(500).json({
-          msg:
+          message:
             error.message ||
             "Something went wrong when submitting your volunteer application. Please try again later or contact your local riding office.",
         });
       });
   } catch (error) {
     res.status(500).json({
-      msg:
+      message:
         error.message ||
         "Something went wrong when submitting your volunteer application. Please try again later or contact your local riding office.",
     });
