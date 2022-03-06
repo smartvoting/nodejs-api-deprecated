@@ -20,6 +20,7 @@
   "homepage": "https://github.com/smartvoting/api#readme",
   "dependencies": {
     "aws-sdk": "^2.1063.0",
+    "axios": "^0.26.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.1",
     "cookie-parser": "^1.4.6",

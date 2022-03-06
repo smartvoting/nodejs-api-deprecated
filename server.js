@@ -19,7 +19,7 @@
 
 require("dotenv").config();
 
-const port = process.env.PORT;
+const port = process.env.PORT || 3000;
 const version = process.env.API_VERSION;
 
 const AWS = require("aws-sdk");
@@ -48,10 +48,11 @@ require(`./${version}/routes/api_keys.routes`)(app, version);
 // require(`./${version}/routes/candidate.routes`)(app, version);
 // require(`./${version}/routes/election.routes`)(app, version);
 require(`./${version}/routes/party.routes`)(app, version);
+require(`./${version}/routes/opennorth.routes`)(app, version);
 // require(`./${version}/routes/vote.routes`)(app, version);
 // require(`./${version}/routes/voter.routes`)(app, version);
 require(`./${version}/routes/general.routes`)(app, version);
 
-app.listen(port || 3000, () => {
-  console.log("server is running");
+app.listen(port, () => {
+  console.log(`server is running at: http://localhost:${port}/${version}/`);
 });
